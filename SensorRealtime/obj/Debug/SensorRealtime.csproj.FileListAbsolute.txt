@@ -1,0 +1,16 @@
+E:\IP\SensorRealtime\SensorRealtime\bin\Debug\SensorRealtime.exe.config
+E:\IP\SensorRealtime\SensorRealtime\bin\Debug\Assets\snail_icon.ico
+E:\IP\SensorRealtime\SensorRealtime\bin\Debug\SensorRealtime.exe
+E:\IP\SensorRealtime\SensorRealtime\bin\Debug\SensorRealtime.pdb
+E:\IP\SensorRealtime\SensorRealtime\obj\Debug\SensorRealtime.csprojResolveAssemblyReference.cache
+E:\IP\SensorRealtime\SensorRealtime\obj\Debug\SensorRealtime.MainForm.resources
+E:\IP\SensorRealtime\SensorRealtime\obj\Debug\SensorRealtime.Properties.Resources.resources
+E:\IP\SensorRealtime\SensorRealtime\obj\Debug\SensorRealtime.csproj.GenerateResource.Cache
+E:\IP\SensorRealtime\SensorRealtime\obj\Debug\SensorRealtime.exe
+E:\IP\SensorRealtime\SensorRealtime\obj\Debug\SensorRealtime.pdb
+E:\IP\SensorRealtime\SensorRealtime\bin\Debug\Newtonsoft.Json.dll
+E:\IP\SensorRealtime\SensorRealtime\bin\Debug\Newtonsoft.Json.xml
+E:\IP\SensorRealtime\SensorRealtime\bin\Debug\ClosedXML.dll
+E:\IP\SensorRealtime\SensorRealtime\bin\Debug\DocumentFormat.OpenXml.dll
+E:\IP\SensorRealtime\SensorRealtime\bin\Debug\ClosedXML.pdb
+E:\IP\SensorRealtime\SensorRealtime\bin\Debug\ClosedXML.xml
