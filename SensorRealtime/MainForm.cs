@@ -84,7 +84,9 @@ namespace SensorRealtime
                 this.startDisplay.Text = "Start";
             } catch (OperationCanceledException oce)
             {
-                Console.WriteLine(oce.ToString());
+            } catch (ArgumentOutOfRangeException aoore)
+            {
+                MessageBox.Show("Slow internet connection! Please check you connection or set slower rate!");
             }
         }
 
@@ -102,7 +104,7 @@ namespace SensorRealtime
             this.realtime_lineChart.ChartAreas["draw"].AxisY.Maximum = maxDisplay;
             this.realtime_lineChart.ChartAreas["draw"].AxisY.Interval = 10;
             this.realtime_lineChart.Series.Add(selectedParameter);
-            this.realtime_lineChart.Series[selectedParameter].LegendText = description;
+            this.realtime_lineChart.Series[selectedParameter].LegendText = description.Substring(description.IndexOf('(')+1).Replace(")","");
             this.realtime_lineChart.Series[selectedParameter].ChartType = Graph.SeriesChartType.Line;
             this.realtime_lineChart.Series[selectedParameter].Color = Color.LightGreen;
             this.realtime_lineChart.Series[selectedParameter].BorderWidth = 3;
@@ -117,22 +119,29 @@ namespace SensorRealtime
         }
         private async Task exportExcelAsync(int totalTimeInSec, List<string> multiParameterSelected, string savePath)
         {
-            using (XLWorkbook wb = new XLWorkbook())
+            try
             {
-                JObject data;
-                Stopwatch sw = new Stopwatch();
-                await this.addWorkSheetAsync(wb, multiParameterSelected);
-                for(int i = 0; i<totalTimeInSec; i+=10)
+                using (XLWorkbook wb = new XLWorkbook())
                 {
-                    sw.Restart();
-                    data = await getDataAsync(); 
-                    await this.formatWorkSheetsAsync(wb, data, multiParameterSelected);
-                    await this.addDataToWorkSheetsAsync(wb, data, multiParameterSelected, DateTime.Now.ToString("HH:mm:ss"), Math.Abs(i/10));
-                    this.savingTimeRemainLb.Text = (totalTimeInSec - i).ToString();
-                    sw.Stop();
-                    await Task.Delay(10 * 1000 - (int)sw.ElapsedMilliseconds);
+                    JObject data;
+                    Stopwatch sw = new Stopwatch();
+                    await this.addWorkSheetAsync(wb, multiParameterSelected);
+                    for (int i = 0; i < totalTimeInSec; i += 10)
+                    {
+                        sw.Restart();
+                        data = await getDataAsync();
+                        await this.formatWorkSheetsAsync(wb, data, multiParameterSelected);
+                        await this.addDataToWorkSheetsAsync(wb, data, multiParameterSelected, DateTime.Now.ToString("HH:mm:ss"), Math.Abs(i / 10));
+                        this.savingTimeRemainLb.Text = (totalTimeInSec - i).ToString();
+                        sw.Stop();
+                        await Task.Delay(10 * 1000 - (int)sw.ElapsedMilliseconds);
+                    }
+                    wb.SaveAs(savePath);
                 }
-                wb.SaveAs(savePath);
+            }
+            catch (ArgumentOutOfRangeException aoore)
+            {
+                MessageBox.Show("Slow internet connection! Please check you connection or set slower rate!");
             }
         }
 
