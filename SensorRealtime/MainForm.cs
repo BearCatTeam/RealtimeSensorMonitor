@@ -190,17 +190,17 @@ namespace SensorRealtime
         /// 
         private async void durationBar_dpTab_ValueChanged(object sender, EventArgs e)
         {
-            int min = await Task.Run<int>(()=> this.getMinuteFromTrackBar(this.durationBar_dpTab.Value));
+            int min = this.getMinuteFromTrackBar(this.durationBar_dpTab.Value);
             this.minValueLb_dpTab.Text = min.ToString(); this.minValueLb_dpTab.Refresh();
-            int sec = await Task.Run<int>(()=>this.getSecondFromTrackBar(this.durationBar_dpTab.Value, min));
+            int sec = this.getSecondFromTrackBar(this.durationBar_dpTab.Value, min);
             this.secValueLb_dpTab.Text = sec.ToString(); this.secValueLb_dpTab.Refresh();
         }
 
         private async void durationbar_epTab_ValueChanged(object sender, EventArgs e)
         {
-            int min = await Task.Run<int>(()=>this.getMinuteFromTrackBar(this.durationBar_epTab.Value));
+            int min = this.getMinuteFromTrackBar(this.durationBar_epTab.Value);
             this.minValueLb_epTab.Text = min.ToString(); this.minValueLb_epTab.Refresh();
-            int sec = await Task.Run<int>(()=>this.getSecondFromTrackBar(this.durationBar_epTab.Value, min));
+            int sec = this.getSecondFromTrackBar(this.durationBar_epTab.Value, min);
             this.secValueLb_epTab.Text = sec.ToString(); this.secValueLb_epTab.Refresh();
         }
 
@@ -215,8 +215,8 @@ namespace SensorRealtime
                 cts = null;
             }
             this.cts = new CancellationTokenSource();
-            int min = await Task.Run<int>(()=>this.getMinuteFromTrackBar(this.durationBar_dpTab.Value));
-            int sec = await Task.Run<int>(()=>this.getSecondFromTrackBar(this.durationBar_dpTab.Value, min));
+            int min = this.getMinuteFromTrackBar(this.durationBar_dpTab.Value);
+            int sec = this.getSecondFromTrackBar(this.durationBar_dpTab.Value, min);
             await this.clearPreviousChartData();
             await this.displayLineChartAsync(min * 60 + sec, int.Parse(this.updateRateCb.SelectedItem.ToString()), 
                                                 this.parameterListCb.SelectedItem.ToString(), this.cts.Token);
@@ -255,8 +255,8 @@ namespace SensorRealtime
         {
             this.saveDirectoryBrowser.ShowDialog();
             string savePath = this.saveDirectoryBrowser.FileName;
-            int min = await Task.Run<int>(()=>this.getMinuteFromTrackBar(this.durationBar_epTab.Value));
-            int sec = await Task.Run<int>(()=>this.getSecondFromTrackBar(this.durationBar_epTab.Value, min));
+            int min = this.getMinuteFromTrackBar(this.durationBar_epTab.Value);
+            int sec = this.getSecondFromTrackBar(this.durationBar_epTab.Value, min);
             int totalTimeInSec = (min * 60) + sec; this.savingTimeRemainLb.Text = totalTimeInSec.ToString();
             await this.exportExcelAsync(totalTimeInSec, this.multiParameterSelected, savePath);
             MessageBox.Show("Data has been saved!");
