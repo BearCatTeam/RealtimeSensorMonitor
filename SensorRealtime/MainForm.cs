@@ -17,6 +17,8 @@ using ClosedXML.Excel;
 using System.IO;
 using System.Reflection;
 using System.Diagnostics;
+using ThreadTimer = System.Threading.Timer;
+using SysTimer = System.Timers.Timer;
 using Graph = System.Windows.Forms.DataVisualization.Charting;
 
 namespace SensorRealtime
@@ -24,7 +26,7 @@ namespace SensorRealtime
     public partial class MainForm : Form
     {
         private CancellationTokenSource cts;
-        private List<string> multiParameterSelected;
+        private List<string> multiParameterSelected;    
 
         public MainForm()
         {
@@ -45,15 +47,28 @@ namespace SensorRealtime
 
         private async Task<JObject> getDataAsync()
         {
-            using (HttpClientHandler httpClientHandler = new HttpClientHandler())
+            try
             {
-                httpClientHandler.UseProxy = false;
-                using (HttpClient httpHandler = new HttpClient(httpClientHandler))
+                using (HttpClientHandler httpClientHandler = new HttpClientHandler())
                 {
-                    var jsonString = await httpHandler.GetStringAsync("http://ivlab.azurewebsites.net/getData");
-                    JObject data = await this.parseJsonAsync(jsonString);
-                    return data;
+                    httpClientHandler.UseProxy = false;
+                    using (HttpClient httpHandler = new HttpClient(httpClientHandler))
+                    {
+                        var jsonString = await httpHandler.GetStringAsync("http://ivlab.azurewebsites.net/getData");
+                        JObject data = await this.parseJsonAsync(jsonString);
+                        return data;
+                    }
                 }
+            }
+            catch (HttpRequestException httpe)
+            {
+                MessageBox.Show("Internet has been disconected!");
+                return null;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return null;
             }
         }
 
@@ -74,7 +89,7 @@ namespace SensorRealtime
             {
                 this.startDisplay.Text = "Refresh";
                 Stopwatch sw = new Stopwatch();
-                JObject data = await getDataAsync();
+                JObject data = await getDataAsync(); if (data == null) { this.startDisplay.Text = "Start"; return; }
                 float actual;
                 await this.decorateLineChartAsync(data, selectedParameter, totalTimeInSec, rate);
                 for (int i = 0; i <= totalTimeInSec; i += rate)
@@ -84,7 +99,7 @@ namespace SensorRealtime
                     ct.ThrowIfCancellationRequested();
                     if ((i != 0) && (i != totalTimeInSec)) timeStamp = "";
                     ct.ThrowIfCancellationRequested();
-                    data = await this.getDataAsync();
+                    data = await this.getDataAsync(); if (data == null) break;
                     ct.ThrowIfCancellationRequested();
                     actual = float.Parse(data[selectedParameter][5]["actual"].ToString());
                     ct.ThrowIfCancellationRequested();
