@@ -77,12 +77,12 @@ namespace SensorRealtime
                 JObject data = await getDataAsync();
                 float actual;
                 await this.decorateLineChartAsync(data, selectedParameter, totalTimeInSec, rate);
-                for (int i = 0; i < totalTimeInSec; i += rate)
+                for (int i = 0; i <= totalTimeInSec; i += rate)
                 {
                     string timeStamp = DateTime.Now.ToString("HH:mm:ss");
                     sw.Restart();
                     ct.ThrowIfCancellationRequested();
-                    if ((i != 0) && (i != totalTimeInSec - rate)) timeStamp = "";
+                    if ((i != 0) && (i != totalTimeInSec)) timeStamp = "";
                     ct.ThrowIfCancellationRequested();
                     data = await this.getDataAsync();
                     ct.ThrowIfCancellationRequested();
