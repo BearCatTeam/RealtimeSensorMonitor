@@ -30,10 +30,11 @@ namespace SensorRealtime
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabContainer = new System.Windows.Forms.TabControl();
             this.displayTab = new System.Windows.Forms.TabPage();
+            this.stopDisplayBt = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.updateRateCb = new System.Windows.Forms.ComboBox();
             this.startDisplay = new System.Windows.Forms.Button();
@@ -47,6 +48,9 @@ namespace SensorRealtime
             this.parameterListCb = new System.Windows.Forms.ComboBox();
             this.realtime_lineChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.exportTab = new System.Windows.Forms.TabPage();
+            this.savingTimeRemainLb = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tank1Bt = new System.Windows.Forms.Button();
             this.tank2Bt = new System.Windows.Forms.Button();
@@ -79,9 +83,7 @@ namespace SensorRealtime
             this.label7 = new System.Windows.Forms.Label();
             this.durationBar_epTab = new System.Windows.Forms.TrackBar();
             this.saveDirectoryBrowser = new System.Windows.Forms.SaveFileDialog();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.savingTimeRemainLb = new System.Windows.Forms.Label();
+            this.saveChartbt = new System.Windows.Forms.Button();
             this.tabContainer.SuspendLayout();
             this.displayTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.durationBar_dpTab)).BeginInit();
@@ -100,11 +102,13 @@ namespace SensorRealtime
             this.tabContainer.Location = new System.Drawing.Point(0, 0);
             this.tabContainer.Name = "tabContainer";
             this.tabContainer.SelectedIndex = 0;
-            this.tabContainer.Size = new System.Drawing.Size(1093, 664);
+            this.tabContainer.Size = new System.Drawing.Size(1411, 664);
             this.tabContainer.TabIndex = 0;
             // 
             // displayTab
             // 
+            this.displayTab.Controls.Add(this.saveChartbt);
+            this.displayTab.Controls.Add(this.stopDisplayBt);
             this.displayTab.Controls.Add(this.label3);
             this.displayTab.Controls.Add(this.updateRateCb);
             this.displayTab.Controls.Add(this.startDisplay);
@@ -120,16 +124,30 @@ namespace SensorRealtime
             this.displayTab.Location = new System.Drawing.Point(4, 34);
             this.displayTab.Name = "displayTab";
             this.displayTab.Padding = new System.Windows.Forms.Padding(3);
-            this.displayTab.Size = new System.Drawing.Size(1085, 626);
+            this.displayTab.Size = new System.Drawing.Size(1403, 626);
             this.displayTab.TabIndex = 0;
             this.displayTab.Text = "Display";
             this.displayTab.UseVisualStyleBackColor = true;
             // 
+            // stopDisplayBt
+            // 
+            this.stopDisplayBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.stopDisplayBt.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stopDisplayBt.ForeColor = System.Drawing.Color.Crimson;
+            this.stopDisplayBt.Location = new System.Drawing.Point(1165, 14);
+            this.stopDisplayBt.Name = "stopDisplayBt";
+            this.stopDisplayBt.Size = new System.Drawing.Size(113, 65);
+            this.stopDisplayBt.TabIndex = 13;
+            this.stopDisplayBt.Text = "Stop";
+            this.stopDisplayBt.UseVisualStyleBackColor = true;
+            this.stopDisplayBt.Click += new System.EventHandler(this.stopDisplayBt_Click);
+            // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(799, 14);
+            this.label3.Location = new System.Drawing.Point(935, 14);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(89, 25);
             this.label3.TabIndex = 12;
@@ -137,18 +155,19 @@ namespace SensorRealtime
             // 
             // updateRateCb
             // 
+            this.updateRateCb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.updateRateCb.Cursor = System.Windows.Forms.Cursors.Default;
             this.updateRateCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.updateRateCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateRateCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.updateRateCb.FormattingEnabled = true;
             this.updateRateCb.Items.AddRange(new object[] {
             "1",
             "2",
             "5",
             "10"});
-            this.updateRateCb.Location = new System.Drawing.Point(804, 46);
+            this.updateRateCb.Location = new System.Drawing.Point(940, 42);
             this.updateRateCb.Name = "updateRateCb";
-            this.updateRateCb.Size = new System.Drawing.Size(107, 33);
+            this.updateRateCb.Size = new System.Drawing.Size(90, 34);
             this.updateRateCb.TabIndex = 11;
             // 
             // startDisplay
@@ -156,9 +175,9 @@ namespace SensorRealtime
             this.startDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.startDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startDisplay.ForeColor = System.Drawing.Color.Green;
-            this.startDisplay.Location = new System.Drawing.Point(917, 14);
+            this.startDisplay.Location = new System.Drawing.Point(1036, 14);
             this.startDisplay.Name = "startDisplay";
-            this.startDisplay.Size = new System.Drawing.Size(160, 65);
+            this.startDisplay.Size = new System.Drawing.Size(123, 65);
             this.startDisplay.TabIndex = 2;
             this.startDisplay.Text = "Start";
             this.startDisplay.UseVisualStyleBackColor = true;
@@ -235,7 +254,7 @@ namespace SensorRealtime
             this.durationBar_dpTab.Maximum = 55;
             this.durationBar_dpTab.Minimum = 1;
             this.durationBar_dpTab.Name = "durationBar_dpTab";
-            this.durationBar_dpTab.Size = new System.Drawing.Size(559, 56);
+            this.durationBar_dpTab.Size = new System.Drawing.Size(695, 56);
             this.durationBar_dpTab.TabIndex = 1;
             this.durationBar_dpTab.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             this.durationBar_dpTab.Value = 1;
@@ -281,11 +300,11 @@ namespace SensorRealtime
             this.realtime_lineChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.Name = "draw";
-            this.realtime_lineChart.ChartAreas.Add(chartArea1);
+            chartArea3.Name = "draw";
+            this.realtime_lineChart.ChartAreas.Add(chartArea3);
             this.realtime_lineChart.Location = new System.Drawing.Point(8, 85);
             this.realtime_lineChart.Name = "realtime_lineChart";
-            this.realtime_lineChart.Size = new System.Drawing.Size(1069, 538);
+            this.realtime_lineChart.Size = new System.Drawing.Size(1387, 538);
             this.realtime_lineChart.TabIndex = 0;
             // 
             // exportTab
@@ -308,6 +327,37 @@ namespace SensorRealtime
             this.exportTab.TabIndex = 1;
             this.exportTab.Text = "Export";
             this.exportTab.UseVisualStyleBackColor = true;
+            // 
+            // savingTimeRemainLb
+            // 
+            this.savingTimeRemainLb.AutoSize = true;
+            this.savingTimeRemainLb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.savingTimeRemainLb.ForeColor = System.Drawing.Color.Red;
+            this.savingTimeRemainLb.Location = new System.Drawing.Point(575, 11);
+            this.savingTimeRemainLb.Name = "savingTimeRemainLb";
+            this.savingTimeRemainLb.Size = new System.Drawing.Size(24, 25);
+            this.savingTimeRemainLb.TabIndex = 21;
+            this.savingTimeRemainLb.Text = "0";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(622, 11);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(46, 25);
+            this.label8.TabIndex = 20;
+            this.label8.Text = "sec";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(319, 11);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(218, 25);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "Saving Time Remain:";
             // 
             // flowLayoutPanel1
             // 
@@ -723,48 +773,30 @@ namespace SensorRealtime
             // 
             // saveDirectoryBrowser
             // 
-            this.saveDirectoryBrowser.DefaultExt = "xlsx";
+            this.saveDirectoryBrowser.Filter = "Excel File (.xlsx)|*.xlsx|JPEG Image (.jpg)|*.jpg";
             this.saveDirectoryBrowser.RestoreDirectory = true;
             this.saveDirectoryBrowser.ShowHelp = true;
             this.saveDirectoryBrowser.SupportMultiDottedExtensions = true;
             this.saveDirectoryBrowser.Title = "Save Data";
             // 
-            // label4
+            // saveChartbt
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(319, 11);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(218, 25);
-            this.label4.TabIndex = 19;
-            this.label4.Text = "Saving Time Remain:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(622, 11);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(46, 25);
-            this.label8.TabIndex = 20;
-            this.label8.Text = "sec";
-            // 
-            // savingTimeRemainLb
-            // 
-            this.savingTimeRemainLb.AutoSize = true;
-            this.savingTimeRemainLb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.savingTimeRemainLb.ForeColor = System.Drawing.Color.Red;
-            this.savingTimeRemainLb.Location = new System.Drawing.Point(575, 11);
-            this.savingTimeRemainLb.Name = "savingTimeRemainLb";
-            this.savingTimeRemainLb.Size = new System.Drawing.Size(24, 25);
-            this.savingTimeRemainLb.TabIndex = 21;
-            this.savingTimeRemainLb.Text = "0";
+            this.saveChartbt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.saveChartbt.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveChartbt.ForeColor = System.Drawing.Color.Tomato;
+            this.saveChartbt.Location = new System.Drawing.Point(1284, 14);
+            this.saveChartbt.Name = "saveChartbt";
+            this.saveChartbt.Size = new System.Drawing.Size(113, 65);
+            this.saveChartbt.TabIndex = 14;
+            this.saveChartbt.Text = "SAVE";
+            this.saveChartbt.UseVisualStyleBackColor = true;
+            this.saveChartbt.Click += new System.EventHandler(this.saveChartbt_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1093, 664);
+            this.ClientSize = new System.Drawing.Size(1411, 664);
             this.Controls.Add(this.tabContainer);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
@@ -835,6 +867,8 @@ namespace SensorRealtime
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label savingTimeRemainLb;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button stopDisplayBt;
+        private System.Windows.Forms.Button saveChartbt;
     }
 }
 
