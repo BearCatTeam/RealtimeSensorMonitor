@@ -78,14 +78,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SensorRealtime.exe" size="415672">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SensorRealtime.exe" size="416184">
       <assemblyIdentity name="SensorRealtime" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>1rwD3hcmsFM91ZGwqYXJDvDnG3HKaNYfSGbuuCbQVic=</dsig:DigestValue>
+        <dsig:DigestValue>i/WdH3DMpXRKdvxIkFCEAdACPnemOecB7rSPi9Veehc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -14,3 +14,7 @@ E:\IP\SensorRealtime\SensorRealtime\bin\Debug\ClosedXML.dll
 E:\IP\SensorRealtime\SensorRealtime\bin\Debug\DocumentFormat.OpenXml.dll
 E:\IP\SensorRealtime\SensorRealtime\bin\Debug\ClosedXML.pdb
 E:\IP\SensorRealtime\SensorRealtime\bin\Debug\ClosedXML.xml
+E:\IP\SensorRealtime\SensorRealtime\bin\Debug\SensorRealtime.exe.manifest
+E:\IP\SensorRealtime\SensorRealtime\bin\Debug\SensorRealtime.application
+E:\IP\SensorRealtime\SensorRealtime\obj\Debug\SensorRealtime.exe.manifest
+E:\IP\SensorRealtime\SensorRealtime\obj\Debug\SensorRealtime.application

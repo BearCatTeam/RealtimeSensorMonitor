@@ -163,6 +163,7 @@ namespace SensorRealtime
             this.realtime_lineChart.Series.Clear();
             this.realtime_lineChart.Legends.Clear();
         }
+
         private async Task exportExcelAsync(int totalTimeInSec, List<string> multiParameterSelected, string savePath)
         {
             try
@@ -177,6 +178,7 @@ namespace SensorRealtime
                         string timeStamp = DateTime.Now.ToString("HH:mm:ss");
                         sw.Restart();
                         data = await getDataAsync();
+                        if (data == null) { MessageBox.Show("Connection loss! Please check!"); return; }
                         if (i==0) await this.formatWorkSheetsAsync(wb, data, multiParameterSelected);
                         await this.addDataToWorkSheetsAsync(wb, data, multiParameterSelected, timeStamp, Math.Abs(i / 10));
                         this.savingTimeRemainLb.Text = (totalTimeInSec - i).ToString();
@@ -188,7 +190,7 @@ namespace SensorRealtime
             }
             catch (ArgumentOutOfRangeException aoore)
             {
-                MessageBox.Show("Slow internet connection! Please check you connection or set slower rate!");
+                MessageBox.Show("Slow internet connection! Please check you connection or try again later!");
                 Console.WriteLine(aoore.ToString());
             }
         }
@@ -267,19 +269,20 @@ namespace SensorRealtime
 
         private async void startDisplay_Click(object sender, EventArgs e)
         {
-            if (this.parameterListCb.SelectedItem == null) {
+            if (this.parameterListCb.SelectedItem == null) { // check it any parameter is selected
                 MessageBox.Show("Please select a parameter to display !", "Notice");
                 return;
             }
-            if (this.cts != null) {
+            if (this.cts != null) { // cancel the previous display process to start a new 
                 this.cts.Cancel();
                 this.cts = null;
             }
-           
-            this.cts = new CancellationTokenSource();
+            this.cts = new CancellationTokenSource(); // start a new token for the current display process
             int min = this.getMinuteFromTrackBar(this.durationBar_dpTab.Value);
             int sec = this.getSecondFromTrackBar(this.durationBar_dpTab.Value, min);
-            await this.clearPreviousChartData();
+            await this.clearPreviousChartData(); 
+
+            // call the this play chart task and then return the control to UI thread right away for now blocking. 
             await this.displayLineChartAsync(min * 60 + sec, int.Parse(this.updateRateCb.SelectedItem.ToString()), 
                                                 this.parameterListCb.SelectedItem.ToString(), this.cts.Token);
         }
